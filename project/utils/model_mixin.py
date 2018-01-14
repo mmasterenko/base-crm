@@ -1,38 +1,18 @@
-import os
-
 from django.db import models
+from django.conf import settings
+
+from core.models import Account
 
 
-class CreateUpdateMixin(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
-class SafeDeleteMixin(models.Model):
-    is_deleted = models.BooleanField(default=False)
+class AccountMixin(models.Model):
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
 
-    def delete(self, *args, **kwargs):
-        self.is_deleted = True
-        self.save()
 
+class CreatorMixin(models.Model):
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
-class FileMixin:
-    @property
-    def size(self):
-        if self.file:
-            return self.file.size
-        else:
-            return None
-
-    @property
-    def filename(self):
-        if self.file:
-            return os.path.basename(self.file.name)  # cause self.file.name can include upload_dir path
-        else:
-            return None
+    class Meta:
+        abstract = True

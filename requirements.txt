@@ -11,3 +11,4 @@ djangorestframework==3.7.7
 Markdown==2.6.11
 psycopg2==2.7.3.2
 redis==2.10.6
+pylibmc==1.5.2
