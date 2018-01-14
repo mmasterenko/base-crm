@@ -1,0 +1,9 @@
+В процессе распознования клиентского файла, не удалось найти ренжсет для данной спецификации:
+
+тип: {{ type.title }} (id: {{ type.id }})
+брэнд: {{ brand.title }} (id: {{ brand.id }})
+модель: {{ model.title }} (id: {{ model.id }})
+двигатель: {{ engine.title }} (id: {{ engine.id }})
+ЕКУ: {{ ecu.title }} (id: {{ ecu.id }})
+
+{% include 'emails/system/includes/_i_user_detail.txt' %}

@@ -1,0 +1,13 @@
+ВНИМАНИЕ:
+В базе не нашлось ни одного оригинала для файла пользователя.
+
+Файл пользователя:
+{{ client_upload.url }}
+размер: {{ client_upload.size }}
+номер софта: {{ client_upload.sw_identifier | safe }}
+API Link: {{ client_upload.api_link }}
+
+Данные пользователя, делавшего запрос:
+Username: {{ user.username }}
+User ID: {{ user.id }}
+API Link: {{ user_link }}

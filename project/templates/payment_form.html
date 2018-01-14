@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Form</title>
+</head>
+<body>
+
+<h2>Test payment form</h2>
+
+<form action="https://demomoney.yandex.ru/eshop.xml" method="POST">
+<!--<form action="" method="post">-->
+    <!--{% csrf_token %}-->
+    <input name="client_upload_id" value="1111" type="hidden"/>
+    <input name="modification_id" value="2222" type="hidden"/>
+    <input name="shopId" value="{{ shopId }}" type="hidden"/>
+    <input name="scid" value="{{ scid }}" type="hidden"/>
+    <input name="customerNumber" value="{{ customerNumber }}" type="hidden"/>
+    <input name="orderNumber" value="{{ orderNumber }}" type="hidden"/>
+    <input name="sum" value="{{ sum }}" />
+    <input type="submit" value="Оплатить"/>
+</form>
+
+
+</body>
+</html>

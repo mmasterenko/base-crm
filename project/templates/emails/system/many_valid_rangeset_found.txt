@@ -1,0 +1,19 @@
+В процессе распознования клиентского файла, было найдено несколько валидных ренжсетов,
+подходящих под этот файл:
+
+
+Список рейнжсетов:
+{% for url in valid_rangeset_urls %}
+{{ forloop.counter }}. {{ url }}
+{% endfor %}
+
+
+Спецификация авто:
+тип: {{ type.title }} (id: {{ type.id }})
+брэнд: {{ brand.title }} (id: {{ brand.id }})
+модель: {{ model.title }} (id: {{ model.id }})
+двигатель: {{ engine.title }} (id: {{ engine.id }})
+ЕКУ: {{ ecu.title }} (id: {{ ecu.id }})
+
+
+{% include 'emails/system/includes/_i_user_detail.txt' %}

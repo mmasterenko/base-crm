@@ -1,0 +1,22 @@
+ВНИМАНИЕ:
+
+В базе нашлось несколько оригиналов одинакового размера с одинаковым номером и одинакового размера:
+
+{% for original in originals %}
+{{ forloop.counter }}.
+{{ original.url }}
+размер: {{ original.size }}
+номер софта: {{ original.sw_identifier | safe }}
+API Link: {{ original.api_link }}
+{% endfor %}
+
+Данные пользователя, делавшего запрос:
+Username: {{ user.username }}
+User ID: {{ user.id }}
+API Link: {{ user_link }}
+
+Файл пользователя:
+{{ client_upload.url }}
+размер: {{ client_upload.size }}
+номер софта: {{ client_upload.sw_identifier | safe }}
+API Link: {{ client_upload.api_link }}

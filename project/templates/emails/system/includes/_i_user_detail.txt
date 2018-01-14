@@ -1,0 +1,4 @@
+Данные пользователя, делавшего запрос:
+Username: {{ user.username }}
+User ID: {{ user.id }}
+API Link: {{ user_link }}

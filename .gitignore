@@ -1,0 +1,10 @@
+.idea/
+.venv
+__pycache__/
+*.pyc
+local_dev.py
+staticfiles/
+uploadfiles/
+update.sh
+
+*.log
