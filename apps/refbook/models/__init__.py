@@ -1,3 +1,3 @@
-from .base import *
-from .address import *
-from .crm import *
+from .base import *     # NOQA
+from .address import *  # NOQA
+from .crm import *      # NOQA

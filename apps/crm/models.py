@@ -2,12 +2,14 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 
-from apps.refbook.models import (Organisation, Shop, OrderingType, OrderStatus, OrderSource, Country,
-                                 Region, City, PaymentType, CounterAgent)
+from apps.refbook.models import (Organisation, Shop, OrderingType, OrderStatus, OrderSource,
+                                 PaymentType, CounterAgent)
+from core.models import Country, Region, City
 from utils.model_mixin import CreateUpdateMixin
+from project.utils.model_mixin import AccountMixin
 
 
-class Order(CreateUpdateMixin, models.Model):
+class Order(AccountMixin, CreateUpdateMixin, models.Model):
     """
     обратные связи:
     - товары
@@ -51,6 +53,6 @@ class Order(CreateUpdateMixin, models.Model):
     paid_for = models.DecimalField(default=0, max_digits=10, decimal_places=2)
 
 
-class OrderLine(CreateUpdateMixin, models.Model):
+class OrderLine(AccountMixin, CreateUpdateMixin, models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
