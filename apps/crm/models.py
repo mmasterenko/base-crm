@@ -2,11 +2,11 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 
-from apps.refbook.models import (Organisation, Shop, OrderingType, OrderStatus, OrderSource,
-                                 PaymentType, CounterAgent)
-from core.models import Country, Region, City
 from utils.model_mixin import CreateUpdateMixin
 from project.utils.model_mixin import AccountMixin
+from core.models import Country, Region, City
+from apps.refbook.models import (Organisation, Shop, OrderingType, OrderStatus, OrderSource,
+                                 PaymentType, CounterAgent, Product)
 
 
 class Order(AccountMixin, CreateUpdateMixin, models.Model):
@@ -54,5 +54,39 @@ class Order(AccountMixin, CreateUpdateMixin, models.Model):
 
 
 class OrderLine(AccountMixin, CreateUpdateMixin, models.Model):
-
+    """
+    строка товар - в таблице товары (в Заказе)
+    """
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, blank=True, null=True, on_delete=models.SET_NULL)
+    count = models.PositiveIntegerField(default=0)
+    discount = models.PositiveSmallIntegerField(default=0)
+    price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+
+
+class Task(AccountMixin, CreateUpdateMixin, models.Model):
+    """
+    задачи
+    """
+    pass
+
+
+class CustomerRequest(AccountMixin, CreateUpdateMixin, models.Model):
+    """
+    обращения пользователей
+    """
+    pass
+
+
+class VoiceCall(AccountMixin, CreateUpdateMixin, models.Model):
+    """
+    звонки
+    """
+    pass
+
+
+class Bill(AccountMixin, CreateUpdateMixin, models.Model):
+    """
+    розничные чеки
+    """
+    pass
