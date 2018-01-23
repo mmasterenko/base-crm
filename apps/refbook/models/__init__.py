@@ -1,2 +1,3 @@
-from .base import *     # NOQA
-from .crm import *      # NOQA
+from .base import *       # NOQA
+from .order import *      # NOQA
+from .product import *    # NOQA

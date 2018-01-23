@@ -2,14 +2,13 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 
-from utils.model_mixin import CreateUpdateMixin
-from project.utils.model_mixin import AccountMixin
+from project.utils.model_mixin import AccountMixin, CreatorMixin, CreateUpdateMixin
 from core.models import Country, Region, City
 from apps.refbook.models import (Organisation, Shop, OrderingType, OrderStatus, OrderSource,
                                  PaymentType, CounterAgent, Product)
 
 
-class Order(AccountMixin, CreateUpdateMixin, models.Model):
+class Order(AccountMixin, CreatorMixin, CreateUpdateMixin, models.Model):
     """
     обратные связи:
     - товары
@@ -32,7 +31,6 @@ class Order(AccountMixin, CreateUpdateMixin, models.Model):
     source = models.ForeignKey(OrderSource, on_delete=models.PROTECT)
     ordering_type = models.ForeignKey(OrderingType, on_delete=models.PROTECT)  # тип оформления
 
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     responsible = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     # покупатель
@@ -64,14 +62,14 @@ class OrderLine(AccountMixin, CreateUpdateMixin, models.Model):
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
 
 
-class Task(AccountMixin, CreateUpdateMixin, models.Model):
+class Task(AccountMixin, CreatorMixin, CreateUpdateMixin, models.Model):
     """
     задачи
     """
     pass
 
 
-class CustomerRequest(AccountMixin, CreateUpdateMixin, models.Model):
+class CustomerRequest(AccountMixin, CreatorMixin, CreateUpdateMixin, models.Model):
     """
     обращения пользователей
     """
