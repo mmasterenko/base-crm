@@ -16,3 +16,10 @@ class CreatorMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class ArchiveMixin(models.Model):
+    is_archive = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
