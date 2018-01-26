@@ -5,6 +5,25 @@ from core.models import Country, Region, City
 from project.utils.model_mixin import AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin
 
 
+class PriceType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+    """
+    типы цен
+    """
+    KIND = (
+        (0, 'закупка'),
+        (1, 'продажа'),
+    )
+
+    CURRENCY_TYPE = (
+        (0, 'RUB'),
+    )
+
+    kind = models.PositiveSmallIntegerField(choices=KIND, default=0)
+    title = models.CharField(max_length=64)
+    currency = models.PositiveSmallIntegerField(choices=CURRENCY_TYPE, default=0)
+    note = models.CharField(max_length=512)
+
+
 class Organisation(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     pass
 
