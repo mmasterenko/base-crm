@@ -21,6 +21,11 @@ class ProductGroup(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
 class Product(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     товар
+
+    ещё добавить:
+    товары в наборе
+    характеристики
+    модификации
     """
     PRODUCT_TYPE = (
         (0, 'Товар'),
@@ -29,6 +34,7 @@ class Product(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, model
     )
 
     title = models.CharField(max_length=256)
+    description = models.TextField(null=True, blank=True)
 
     article = models.CharField(max_length=64)
     bar_code = models.CharField(max_length=32)
