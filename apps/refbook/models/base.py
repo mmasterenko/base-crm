@@ -31,18 +31,20 @@ class PriceType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, mod
     notes = models.CharField(max_length=512)
 
 
-class CashBankAccount(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+class CashBox(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
-    2 сущности:
-    Касса
-    Расчетный счет
+    касса
     """
-    CASHBANK_TYPE = (
-        (0, 'касса'),
-        (1, 'расчетный счет'),
-    )
+    title = models.CharField(max_length=128)
+    organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT)
+    currency = models.PositiveSmallIntegerField(choices=CURRENCY_TYPE, default=0)
+    notes = models.CharField(max_length=512)
 
-    cashbank_type = models.PositiveSmallIntegerField(choices=CASHBANK_TYPE)
+
+class BankAccount(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+    """
+    расчетный счет
+    """
     title = models.CharField(max_length=128)
     organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT)
     currency = models.PositiveSmallIntegerField(choices=CURRENCY_TYPE, default=0)
@@ -99,10 +101,10 @@ class Organisation(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
     accountant = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL)
     accountant_signature = None  # img
     organisation_seal = None  # img
-    default_bank_account = models.ForeignKey(CashBankAccount, blank=True, null=True,
-                                             on_delete=models.SET_NULL)  # расчетный счет по-умолчанию
-    default_cashbox = models.ForeignKey(CashBankAccount, blank=True, null=True,
-                                        on_delete=models.SET_NULL)  # касса по-умолчанию
+    default_bank_account = models.OneToOneField(BankAccount, blank=True, null=True,
+                                                on_delete=models.SET_NULL)  # расчетный счет по-умолчанию
+    default_cashbox = models.OneToOneField(CashBox, blank=True, null=True,
+                                           on_delete=models.SET_NULL)  # касса по-умолчанию
 
 
 class Shop(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
