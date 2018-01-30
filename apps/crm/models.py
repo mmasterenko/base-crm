@@ -2,13 +2,13 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 
-from project.utils.model_mixin import AccountMixin, CreatorMixin, CreateUpdateMixin
+from project.utils.model_mixin import AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin
 from core.models import Country, Region, City
 from apps.refbook.models import (Organisation, Shop, OrderingType, OrderStatus, OrderSource,
                                  PaymentType, CounterAgent, Product)
 
 
-class Order(AccountMixin, CreatorMixin, CreateUpdateMixin, models.Model):
+class Order(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     обратные связи:
     - товары
@@ -34,7 +34,7 @@ class Order(AccountMixin, CreatorMixin, CreateUpdateMixin, models.Model):
     responsible = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     # покупатель
-    buyer = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)
+    counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)
 
     # доставка
     delivery_address_country = models.ForeignKey(Country, on_delete=models.PROTECT)
@@ -51,7 +51,7 @@ class Order(AccountMixin, CreatorMixin, CreateUpdateMixin, models.Model):
     paid_for = models.DecimalField(default=0, max_digits=10, decimal_places=2)
 
 
-class OrderLine(AccountMixin, CreateUpdateMixin, models.Model):
+class OrderLine(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     строка товар - в таблице товары (в Заказе)
     """
@@ -62,28 +62,38 @@ class OrderLine(AccountMixin, CreateUpdateMixin, models.Model):
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
 
 
-class Task(AccountMixin, CreatorMixin, CreateUpdateMixin, models.Model):
+class TaskStatus(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+    title = models.CharField(max_length=64)
+
+
+class Task(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     задачи
     """
-    pass
+    status = models.ForeignKey(TaskStatus, on_delete=models.PROTECT)
+    text = models.TextField()
+    start_datetime = models.DateTimeField(blank=True, null=True)
+    end_datetime = models.DateTimeField(blank=True, null=True)
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)
+    document_basis = None  # документ основание
 
 
-class CustomerRequest(AccountMixin, CreatorMixin, CreateUpdateMixin, models.Model):
+class CustomerRequest(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     обращения пользователей
     """
     pass
 
 
-class VoiceCall(AccountMixin, CreateUpdateMixin, models.Model):
+class VoiceCall(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     звонки
     """
     pass
 
 
-class Bill(AccountMixin, CreateUpdateMixin, models.Model):
+class Bill(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     розничные чеки
     """
