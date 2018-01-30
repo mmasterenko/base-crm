@@ -4,7 +4,7 @@ from django.utils import timezone
 
 from project.utils.model_mixin import AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin
 from core.models import Country, Region, City
-from apps.refbook.models import (Organisation, Shop, OrderingType, OrderStatus, OrderSource,
+from apps.refbook.models import (Organisation, Shop, OrderingType, OrderStatus, OrderingSource,
                                  PaymentType, CounterAgent, Product)
 
 
@@ -28,7 +28,7 @@ class Order(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.
     shop = models.ForeignKey(Shop, on_delete=models.PROTECT)
 
     status = models.ForeignKey(OrderStatus, on_delete=models.PROTECT)
-    source = models.ForeignKey(OrderSource, on_delete=models.PROTECT)
+    ordering_source = models.ForeignKey(OrderingSource, on_delete=models.PROTECT)  # источник оформления
     ordering_type = models.ForeignKey(OrderingType, on_delete=models.PROTECT)  # тип оформления
 
     responsible = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
@@ -57,8 +57,8 @@ class OrderLine(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, mod
     """
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, blank=True, null=True, on_delete=models.SET_NULL)
-    count = models.PositiveIntegerField(default=0)
-    discount = models.PositiveSmallIntegerField(default=0)
+    count = models.PositiveIntegerField(default=0)  # кол-во
+    discount = models.PositiveSmallIntegerField(default=0)  # скидка на данную позицию
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
 
 
@@ -76,18 +76,27 @@ class Task(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.M
     end_datetime = models.DateTimeField(blank=True, null=True)
     responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)
-    document_basis = None  # документ основание
+    base_on_ref = None  # (документ основание) ссылка на другую сущность: Заказы, Обращение и т.д.
+
+
+class CustomerRequestStatus(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+    """
+    статус обращения
+    """
+    title = models.CharField(max_length=64)
 
 
 class CustomerRequest(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     обращения пользователей
     """
-    status = None  # статус
-    source = None  # источник оформления
-    ordering_type = None  # тип оформления
-    shop = models.ForeignKey(Shop, on_delete=models.PROTECT)
+    datetime = models.DateTimeField(default=timezone.now)
 
+    status = models.ForeignKey(CustomerRequestStatus, on_delete=models.PROTECT)  # статус
+    ordering_source = models.ForeignKey(OrderingSource, on_delete=models.PROTECT)  # источник оформления
+    ordering_type = models.ForeignKey(OrderingType, on_delete=models.PROTECT)  # тип оформления
+
+    shop = models.ForeignKey(Shop, on_delete=models.PROTECT)
     responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     text = models.TextField()  # цель обращения
 
@@ -99,11 +108,35 @@ class VoiceCall(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     звонки
     """
-    pass
+    datetime = models.DateTimeField(default=timezone.now)
+    ordering_source = models.ForeignKey(OrderingSource, on_delete=models.PROTECT)  # источник оформления
+    shop = models.ForeignKey(Shop, on_delete=models.PROTECT)
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT)
 
 
 class Bill(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     розничные чеки
     """
-    pass
+    datetime = models.DateTimeField(default=timezone.now)
+    # данные по чеку
+    shop = models.ForeignKey(Shop, on_delete=models.PROTECT)
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT)
+    # покупатель
+    counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)
+    # оплата
+    payment_type = None  # todo: ???
+    paid_for = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+
+
+class BillLine(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+    """
+    строка в таблице Чеки покупателей
+    """
+    bill = models.ForeignKey(Bill, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, blank=True, null=True, on_delete=models.SET_NULL)
+    count = models.PositiveIntegerField(default=0)  # кол-во
+    discount = models.PositiveSmallIntegerField(default=0)  # скидка на данную позицию
+    price = models.DecimalField(default=0, max_digits=10, decimal_places=2)

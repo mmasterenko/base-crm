@@ -13,15 +13,15 @@ class OrderStatus(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, m
 
 class OrderingType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
-    тип оформления заказа:
+    тип (место) оформления:
     по телефону, на точке, в интернет магазине и т.д.
     """
     title = models.CharField(max_length=64)
 
 
-class OrderSource(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+class OrderingSource(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
-    откуда пришёл заказ:
+    источник оформления:
     из яндекс.директ, из биглиона, из поисковой выдачи и т.д.
     """
     title = models.CharField(max_length=64)
