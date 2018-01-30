@@ -83,7 +83,16 @@ class CustomerRequest(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixi
     """
     обращения пользователей
     """
-    pass
+    status = None  # статус
+    source = None  # источник оформления
+    ordering_type = None  # тип оформления
+    shop = models.ForeignKey(Shop, on_delete=models.PROTECT)
+
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    text = models.TextField()  # цель обращения
+
+    counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)
+    organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT)
 
 
 class VoiceCall(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
