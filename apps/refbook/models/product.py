@@ -9,6 +9,8 @@ class Unit(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.M
     единица измерения (эта таблица должна быть предварительно заполнена)
     """
     title = models.CharField(max_length=64)
+    short = models.CharField(max_length=16)
+    by_default = models.BooleanField(default=True)
 
 
 class ProductGroup(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
