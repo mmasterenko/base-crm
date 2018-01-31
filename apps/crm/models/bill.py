@@ -13,7 +13,8 @@ class Bill(AccountMixin, CreateUpdateMixin, CreatorMixin, ArchiveMixin, models.M
     datetime = models.DateTimeField(default=timezone.now)
     # данные по чеку
     shop = models.ForeignKey(Shop, on_delete=models.PROTECT)
-    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='responsible_for_bills',
+                                    on_delete=models.PROTECT)
     organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT)
     # покупатель
     counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)

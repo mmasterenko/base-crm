@@ -15,7 +15,8 @@ class Task(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.M
     text = models.TextField()
     start_datetime = models.DateTimeField(blank=True, null=True)
     end_datetime = models.DateTimeField(blank=True, null=True)
-    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='responsible_for_tasks',
+                                    on_delete=models.PROTECT)
     counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)
     base_on_ref = None  # (документ основание) ссылка на другую сущность: Заказы, Обращение и т.д.
 
@@ -31,7 +32,8 @@ class CustomerRequest(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixi
     ordering_type = models.ForeignKey(OrderingType, on_delete=models.PROTECT)  # тип оформления
 
     shop = models.ForeignKey(Shop, on_delete=models.PROTECT)
-    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='responsible_for_customer_requests',
+                                    on_delete=models.PROTECT)
     text = models.TextField()  # цель обращения
 
     counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)
@@ -45,5 +47,6 @@ class VoiceCall(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     datetime = models.DateTimeField(default=timezone.now)
     ordering_source = models.ForeignKey(OrderingSource, on_delete=models.PROTECT)  # источник оформления
     shop = models.ForeignKey(Shop, on_delete=models.PROTECT)
-    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='responsible_for_voice_calls',
+                                    on_delete=models.PROTECT)
     organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT)

@@ -32,8 +32,8 @@ class PriceType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, mod
     типы цен
     """
     PRICE_KIND = (
-        (0, 'закупка'),
-        (1, 'продажа'),
+        (0, 'закупка'),  # purchase
+        (1, 'продажа'),  # selling
     )
 
     kind = models.PositiveSmallIntegerField(choices=PRICE_KIND, default=0)

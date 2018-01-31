@@ -31,7 +31,8 @@ class Order(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.
     ordering_source = models.ForeignKey(OrderingSource, on_delete=models.PROTECT)  # источник оформления
     ordering_type = models.ForeignKey(OrderingType, on_delete=models.PROTECT)  # тип оформления
 
-    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='responsible_for_orders',
+                                    on_delete=models.SET_NULL)
 
     # покупатель
     counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)

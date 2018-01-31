@@ -46,7 +46,8 @@ class CounterAgent(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
     sex = models.PositiveSmallIntegerField(choices=SEX, default=0)
     birth_date = models.DateField(blank=True, null=True)
     groups = models.ManyToManyField(CounterAgentGroup, related_name='counter_agents')
-    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    responsible = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='responsible_for_counter_agents',
+                                    on_delete=models.PROTECT)
     # тип собственности и официальное название
     property_type = models.PositiveSmallIntegerField(choices=PROPERTY_TYPE)
     formal_title = models.CharField(max_length=256)
@@ -62,9 +63,9 @@ class CounterAgent(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
     account_number = models.CharField(max_length=64, blank=True, null=True)  # номер счёта
     account_title = models.CharField(max_length=256, blank=True, null=True)  # наименование счёта
     # юридический адрес
-    legal_address_country = models.ForeignKey(Country, on_delete=models.PROTECT)
-    legal_address_region = models.ForeignKey(Region, on_delete=models.PROTECT)
-    legal_address_city = models.ForeignKey(City, on_delete=models.PROTECT)
+    legal_address_country = models.ForeignKey(Country, related_name='counter_agents_here', on_delete=models.PROTECT)
+    legal_address_region = models.ForeignKey(Region, related_name='counter_agents_here', on_delete=models.PROTECT)
+    legal_address_city = models.ForeignKey(City, related_name='counter_agents_here', on_delete=models.PROTECT)
     legal_address_postcode = models.CharField(max_length=16)
     legal_address_info = models.CharField(max_length=256)
     # фактический адрес

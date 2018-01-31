@@ -54,9 +54,9 @@ class Organisation(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
     email = models.EmailField()
     notes = models.CharField(max_length=512)
     # юридический адрес
-    legal_address_country = models.ForeignKey(Country, on_delete=models.PROTECT)
-    legal_address_region = models.ForeignKey(Region, on_delete=models.PROTECT)
-    legal_address_city = models.ForeignKey(City, on_delete=models.PROTECT)
+    legal_address_country = models.ForeignKey(Country, related_name='organisations_here', on_delete=models.PROTECT)
+    legal_address_region = models.ForeignKey(Region, related_name='organisations_here', on_delete=models.PROTECT)
+    legal_address_city = models.ForeignKey(City, related_name='organisations_here', on_delete=models.PROTECT)
     legal_address_postcode = models.CharField(max_length=16)
     legal_address_info = models.CharField(max_length=256)
     # фактический адрес
@@ -67,22 +67,28 @@ class Organisation(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
     fact_address_info = models.CharField(max_length=256)
     # настройки учета
     vat = models.PositiveSmallIntegerField(default=0)  # НДС (value-added tax)
-    selling_price_default_type = models.ForeignKey(PriceType, on_delete=models.PROTECT)
-    purchase_price_default_type = models.ForeignKey(PriceType, on_delete=models.PROTECT)
+    selling_price_default_type = models.ForeignKey(PriceType, related_name='default_selling_price_for_organisations',
+                                                   on_delete=models.PROTECT, limit_choices_to={'kind': 1})
+    purchase_price_default_type = models.ForeignKey(PriceType, related_name='default_purchase_price_for_organisations',
+                                                    on_delete=models.PROTECT, limit_choices_to={'kind': 0})
     # префикс к номерам документов
     prefix_type = models.PositiveSmallIntegerField(choices=DOCUMENT_PREFIX_TYPE)
     prefix_string = models.CharField(max_length=16)
     prefix_places = models.PositiveSmallIntegerField(null=True, blank=True)  # число знаков
     # подпись и печать
-    chief = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL)
+    chief = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='chief_in_organisations',
+                              blank=True, null=True, on_delete=models.SET_NULL)
     chief_position = models.CharField(max_length=128)
     chief_signature = None  # img
-    accountant = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL)
+    accountant = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='accountant_in_organisations',
+                                   blank=True, null=True, on_delete=models.SET_NULL)
     accountant_signature = None  # img
     organisation_seal = None  # img
     default_bank_account = models.OneToOneField(BankAccount, blank=True, null=True,
+                                                related_name='default_for_organisation',
                                                 on_delete=models.SET_NULL)  # расчетный счет по-умолчанию
     default_cashbox = models.OneToOneField(CashBox, blank=True, null=True,
+                                           related_name='default_for_organisation',
                                            on_delete=models.SET_NULL)  # касса по-умолчанию
 
 
