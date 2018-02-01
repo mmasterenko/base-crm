@@ -40,3 +40,19 @@ class PriceType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, mod
     title = models.CharField(max_length=64)
     currency = models.PositiveSmallIntegerField(choices=CURRENCY_TYPE, default=0)
     notes = models.CharField(max_length=512)
+
+
+class IncomeNExpenseType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+    """
+    статьи доход / расход
+    """
+    IE_KIND = (
+        (0, 'статья расхода'),
+        (1, 'статья дохода'),
+    )
+    ie_kind = models.PositiveSmallIntegerField(choices=IE_KIND)
+    title = models.CharField(max_length=64)
+    notes = models.CharField(max_length=512)
+
+    class Meta:
+        db_table = 'income_n_expense_type'

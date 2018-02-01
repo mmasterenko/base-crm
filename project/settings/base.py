@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     # third party apps
     # project apps
     'core',
+    'apps.refbook',
+    'apps.crm',
+    'apps.finance',
 ]
 
 MIDDLEWARE = [

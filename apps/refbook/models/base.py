@@ -7,20 +7,15 @@ from .choices import CURRENCY_TYPE, PROPERTY_TYPE
 from .type import PriceType
 
 
-class CashBox(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+class CashNAccount(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
-    касса
+    касса / расчетный счет
     """
-    title = models.CharField(max_length=128)
-    organisation = models.ForeignKey('refbook.Organisation', on_delete=models.PROTECT)
-    currency = models.PositiveSmallIntegerField(choices=CURRENCY_TYPE, default=0)
-    notes = models.CharField(max_length=512)
-
-
-class BankAccount(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
-    """
-    расчетный счет
-    """
+    CA_TYPE = (
+        (0, 'касса'),
+        (1, 'расчетный счет'),
+    )
+    ca_type = models.PositiveSmallIntegerField(choices=CA_TYPE)
     title = models.CharField(max_length=128)
     organisation = models.ForeignKey('refbook.Organisation', on_delete=models.PROTECT)
     currency = models.PositiveSmallIntegerField(choices=CURRENCY_TYPE, default=0)
@@ -31,6 +26,9 @@ class BankAccount(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, m
     korr_account = models.CharField(max_length=64, blank=True, null=True)  # корр.счёт
     account_number = models.CharField(max_length=64, blank=True, null=True)  # номер счёта
     account_title = models.CharField(max_length=256, blank=True, null=True)  # наименование счёта
+
+    class Meta:
+        db_table = 'cash_n_account'
 
 
 class Organisation(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
@@ -84,11 +82,11 @@ class Organisation(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
                                    blank=True, null=True, on_delete=models.SET_NULL)
     accountant_signature = None  # img
     organisation_seal = None  # img
-    default_bank_account = models.OneToOneField(BankAccount, blank=True, null=True,
-                                                related_name='default_for_organisation',
+    default_bank_account = models.OneToOneField(CashNAccount, blank=True, null=True, limit_choices_to={'ca_type': 1},
+                                                related_name='default_bankaccount_for_organisation',
                                                 on_delete=models.SET_NULL)  # расчетный счет по-умолчанию
-    default_cashbox = models.OneToOneField(CashBox, blank=True, null=True,
-                                           related_name='default_for_organisation',
+    default_cashbox = models.OneToOneField(CashNAccount, blank=True, null=True, limit_choices_to={'ca_type': 0},
+                                           related_name='default_cashbox_for_organisation',
                                            on_delete=models.SET_NULL)  # касса по-умолчанию
 
 
