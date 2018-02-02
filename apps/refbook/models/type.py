@@ -4,9 +4,9 @@ from project.utils.model_mixin import AccountMixin, CreatorMixin, CreateUpdateMi
 from .choices import CURRENCY_TYPE
 
 
-class OrderingType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+class OrderingMethod(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
-    тип (место) оформления:
+    КАК произошло оформление заказа, обращения:
     по телефону, на точке, в интернет магазине и т.д.
     """
     title = models.CharField(max_length=64)
@@ -14,7 +14,7 @@ class OrderingType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
 
 class OrderingSource(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
-    источник оформления:
+    ОТКУДА пришел заказ, обращение:
     из яндекс.директ, из биглиона, из поисковой выдачи и т.д.
     """
     title = models.CharField(max_length=64)
@@ -22,6 +22,7 @@ class OrderingSource(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin
 
 class PaymentType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
+    тип оплаты
     наличные, безналичные и т.д.
     """
     title = models.CharField(max_length=64)

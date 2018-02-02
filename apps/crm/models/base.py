@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 
 from project.utils.model_mixin import AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin
-from apps.refbook.models import (Organisation, Shop, OrderingType, OrderingSource,
+from apps.refbook.models import (Organisation, Shop, OrderingMethod, OrderingSource,
                                  CounterAgent, TaskStatus, CustomerRequestStatus)
 
 
@@ -29,7 +29,7 @@ class CustomerRequest(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixi
 
     status = models.ForeignKey(CustomerRequestStatus, on_delete=models.PROTECT)  # статус
     ordering_source = models.ForeignKey(OrderingSource, on_delete=models.PROTECT)  # источник оформления
-    ordering_type = models.ForeignKey(OrderingType, on_delete=models.PROTECT)  # тип оформления
+    ordering_method = models.ForeignKey(OrderingMethod, on_delete=models.PROTECT)  # тип оформления
 
     shop = models.ForeignKey(Shop, on_delete=models.PROTECT)
     responsible = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='responsible_for_customer_requests',

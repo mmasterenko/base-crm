@@ -4,7 +4,7 @@ from django.utils import timezone
 
 from project.utils.model_mixin import AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin
 from core.models import Country, Region, City
-from apps.refbook.models import (Organisation, Shop, OrderingType, OrderStatus, OrderingSource,
+from apps.refbook.models import (Organisation, Shop, OrderingMethod, OrderStatus, OrderingSource,
                                  PaymentType, CounterAgent, Product)
 
 
@@ -29,7 +29,7 @@ class Order(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.
 
     status = models.ForeignKey(OrderStatus, on_delete=models.PROTECT)
     ordering_source = models.ForeignKey(OrderingSource, on_delete=models.PROTECT)  # источник оформления
-    ordering_type = models.ForeignKey(OrderingType, on_delete=models.PROTECT)  # тип оформления
+    ordering_method = models.ForeignKey(OrderingMethod, on_delete=models.PROTECT)  # тип оформления
 
     responsible = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, related_name='responsible_for_orders',
                                     on_delete=models.SET_NULL)
