@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apps.refbook',
     'apps.crm',
     'apps.finance',
+    'apps.store',
 ]
 
 MIDDLEWARE = [
