@@ -1,5 +1,5 @@
 migrations/
-
+devdir/
 .idea/
 .venv
 __pycache__/
