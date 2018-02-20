@@ -21,10 +21,10 @@ class User(CreateUpdateMixin, ArchiveMixin, AbstractUser):
     customized User model
     """
     account = models.ForeignKey(Account, null=True, on_delete=models.PROTECT)
-    phone = models.CharField(max_length=16, blank=True, null=True)
-    patronymic_name = models.CharField(max_length=32, blank=True, null=True)
+    phone = models.CharField(max_length=16, blank=True)
+    patronymic_name = models.CharField(max_length=32, blank=True)
     birth_date = models.DateField(blank=True, null=True)
-    position = models.CharField(max_length=128, blank=True, null=True)
+    position = models.CharField(max_length=128, blank=True)
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'

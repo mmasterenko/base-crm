@@ -7,6 +7,7 @@ ENVIRON = ENVIRONS['dev']
 INSTALLED_APPS += [
     'debug_toolbar',
     'django_extensions',
+    'django.contrib.admindocs',
 ]
 
 

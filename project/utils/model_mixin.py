@@ -1,11 +1,9 @@
 from django.db import models
 from django.conf import settings
 
-from core.models import Account
-
 
 class AccountMixin(models.Model):
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    account = models.ForeignKey('core.Account', on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
