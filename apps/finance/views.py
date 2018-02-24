@@ -1,3 +1,20 @@
-from django.shortcuts import render
+from rest_framework.generics import ListCreateAPIView
 
-# Create your views here.
+from utils.rest_generics import RUDAPIView
+from .models import IncomeNExpense, MoneyFlow
+
+
+class IEList(ListCreateAPIView):
+    pass
+
+
+class IEDetail(RUDAPIView):
+    pass
+
+
+class MoneyFlowList(ListCreateAPIView):
+    pass
+
+
+class MoneyFlowDetail(RUDAPIView):
+    pass
