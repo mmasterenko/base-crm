@@ -43,9 +43,9 @@ class PriceType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, mod
     notes = models.CharField(max_length=512)
 
 
-class IncomeNExpenseType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+class IESource(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
-    статьи доход / расход
+    статьи дохода / расхода
     """
     IE_KIND = (
         (0, 'статья расхода'),
@@ -56,4 +56,4 @@ class IncomeNExpenseType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveM
     notes = models.CharField(max_length=512)
 
     class Meta:
-        db_table = 'income_n_expense_type'
+        db_table = 'ie_source'

@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 
 from project.utils.model_mixin import AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin
-from apps.refbook.models import CounterAgent, Shop, Organisation, CashNAccount, IncomeNExpenseType
+from apps.refbook.models import CounterAgent, Shop, Organisation, CashNAccount, IESource
 
 
 class IncomeNExpense(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
@@ -19,10 +19,10 @@ class IncomeNExpense(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin
                                                choices=IE_KIND)
     is_made = models.BooleanField(verbose_name='проведен',
                                   default=True)
-    source = models.ForeignKey(IncomeNExpenseType,
-                               verbose_name='статья',
-                               help_text='статья дохода/расхода',
-                               on_delete=models.PROTECT)
+    ie_source = models.ForeignKey(IESource,
+                                  verbose_name='статья',
+                                  help_text='статья дохода/расхода',
+                                  on_delete=models.PROTECT)
     cash_account = models.ForeignKey(CashNAccount,
                                      verbose_name='касса/расчетный счет',
                                      on_delete=models.PROTECT)
