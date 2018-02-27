@@ -11,6 +11,9 @@ class OrderingMethod(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin
     """
     title = models.CharField(max_length=64)
 
+    class Meta:
+        db_table = 'ordering_method'
+
 
 class OrderingSource(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
@@ -19,6 +22,9 @@ class OrderingSource(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin
     """
     title = models.CharField(max_length=64)
 
+    class Meta:
+        db_table = 'ordering_source'
+
 
 class PaymentType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
@@ -26,6 +32,9 @@ class PaymentType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, m
     наличные, безналичные и т.д.
     """
     title = models.CharField(max_length=64)
+
+    class Meta:
+        db_table = 'payment_type'
 
 
 class PriceType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
@@ -41,6 +50,9 @@ class PriceType(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, mod
     title = models.CharField(max_length=64)
     currency = models.PositiveSmallIntegerField(choices=CURRENCY_TYPE, default=0)
     notes = models.CharField(max_length=512)
+
+    class Meta:
+        db_table = 'price_type'
 
 
 class IESource(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):

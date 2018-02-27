@@ -20,6 +20,9 @@ class Task(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.M
     counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)
     base_on_ref = None  # (документ основание) ссылка на другую сущность: Заказы, Обращение и т.д.
 
+    class Meta:
+        db_table = 'task'
+
 
 class CustomerRequest(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
@@ -39,6 +42,9 @@ class CustomerRequest(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixi
     counter_agent = models.ForeignKey(CounterAgent, on_delete=models.PROTECT)
     organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT)
 
+    class Meta:
+        db_table = 'request'
+
 
 class VoiceCall(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
@@ -50,3 +56,6 @@ class VoiceCall(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     responsible = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='responsible_for_voice_calls',
                                     on_delete=models.PROTECT)
     organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT)
+
+    class Meta:
+        db_table = 'voice_call'

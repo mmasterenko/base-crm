@@ -10,9 +10,15 @@ class OrderStatus(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, m
     title = models.CharField(max_length=64)
     is_for_new_orders = models.BooleanField(default=True)
 
+    class Meta:
+        db_table = 'order_status'
+
 
 class TaskStatus(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     title = models.CharField(max_length=64)
+
+    class Meta:
+        db_table = 'task_status'
 
 
 class CustomerRequestStatus(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
@@ -20,3 +26,6 @@ class CustomerRequestStatus(AccountMixin, CreatorMixin, CreateUpdateMixin, Archi
     статус обращения
     """
     title = models.CharField(max_length=64)
+
+    class Meta:
+        db_table = 'request_status'

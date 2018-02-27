@@ -12,12 +12,18 @@ class CounterAgentGroup(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMi
     """
     title = models.CharField(max_length=64)
 
+    class Meta:
+        db_table = 'counter_agent_group'
+
 
 class CounterAgentSegment(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     группа/категория контрагентов (один контрагент может быть в нескольких категориях)
     """
     title = models.CharField(max_length=64)
+
+    class Meta:
+        db_table = 'counter_agent_segment'
 
 
 class CounterAgent(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
@@ -74,3 +80,6 @@ class CounterAgent(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
     fact_address_city = models.ForeignKey(City, on_delete=models.PROTECT)
     fact_address_postcode = models.CharField(max_length=16)
     fact_address_info = models.CharField(max_length=256)
+
+    class Meta:
+        db_table = 'counter_agent'

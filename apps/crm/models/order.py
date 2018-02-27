@@ -51,6 +51,9 @@ class Order(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     paid_for = models.DecimalField(default=0, max_digits=10, decimal_places=2)
 
+    class Meta:
+        db_table = 'order'
+
 
 class OrderLine(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
@@ -61,3 +64,6 @@ class OrderLine(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, mod
     count = models.PositiveIntegerField(default=0)  # кол-во
     discount = models.PositiveSmallIntegerField(default=0)  # скидка на данную позицию
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+
+    class Meta:
+        db_table = 'order_line'

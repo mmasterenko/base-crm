@@ -22,6 +22,9 @@ class Bill(AccountMixin, CreateUpdateMixin, CreatorMixin, ArchiveMixin, models.M
     payment_type = None  # todo: ???
     paid_for = models.DecimalField(default=0, max_digits=10, decimal_places=2)
 
+    class Meta:
+        db_table = 'bill'
+
 
 class BillLine(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
@@ -32,3 +35,6 @@ class BillLine(AccountMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     count = models.PositiveIntegerField(default=0)  # кол-во
     discount = models.PositiveSmallIntegerField(default=0)  # скидка на данную позицию
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
+
+    class Meta:
+        db_table = 'bill_line'

@@ -15,3 +15,6 @@ class Warehouse(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, mod
     write_off = models.PositiveSmallIntegerField(choices=WRITE_OFF_TYPE)
     address = models.CharField(max_length=256)
     notes = models.TextField()
+
+    class Meta:
+        db_table = 'warehouse'

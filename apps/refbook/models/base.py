@@ -89,6 +89,12 @@ class Organisation(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
                                            related_name='default_cashbox_for_organisation',
                                            on_delete=models.SET_NULL)  # касса по-умолчанию
 
+    class Meta:
+        db_table = 'organisation'
+
 
 class Shop(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     pass
+
+    class Meta:
+        db_table = 'shop'

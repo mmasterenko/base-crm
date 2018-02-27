@@ -15,6 +15,9 @@ class Account(CreateUpdateMixin, models.Model):
     is_active = models.BooleanField(default=False)
     trial_till = models.DateTimeField()
 
+    class Meta:
+        db_table = 'account'
+
 
 class User(CreateUpdateMixin, ArchiveMixin, AbstractUser):
     """
@@ -27,4 +30,5 @@ class User(CreateUpdateMixin, ArchiveMixin, AbstractUser):
     position = models.CharField(max_length=128, blank=True)
 
     class Meta(AbstractUser.Meta):
+        db_table = 'user'
         swappable = 'AUTH_USER_MODEL'

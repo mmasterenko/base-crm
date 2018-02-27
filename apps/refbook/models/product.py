@@ -12,12 +12,18 @@ class Unit(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.M
     short = models.CharField(max_length=16)
     by_default = models.BooleanField(default=True)
 
+    class Meta:
+        db_table = 'unit'
+
 
 class ProductGroup(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     группа/категория товаров (один товар может быть в нескольких категориях)
     """
     title = models.CharField(max_length=64)
+
+    class Meta:
+        db_table = 'product_group'
 
 
 class Product(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
@@ -48,3 +54,6 @@ class Product(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, model
     purchase_price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
     vat = models.PositiveSmallIntegerField(default=0)  # НДС (value-added tax)
     country = models.ForeignKey(Country, blank=True, null=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        db_table = 'product'

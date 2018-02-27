@@ -9,19 +9,28 @@ class GoodsFlow(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, mod
     """
     pass
 
+    class Meta:
+        db_table = 'goods_flow'
 
-class GoodsReceipt(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+
+class GoodsIn(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     поступления товара извне
     """
     pass
 
+    class Meta:
+        db_table = 'goods_in'
 
-class GoodsOutbound(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+
+class GoodsOut(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     отгрузка товара во вне
     """
     pass
+
+    class Meta:
+        db_table = 'goods_out'
 
 
 class PurchaseOrder(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
@@ -30,37 +39,55 @@ class PurchaseOrder(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin,
     """
     pass
 
+    class Meta:
+        db_table = 'purchase_order'
 
-class RefundToCustomer(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+
+class RefundCustomer(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     возвраты покупателю
     """
     pass
 
+    class Meta:
+        db_table = 'refund_customer'
 
-class RefundToProvider(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+
+class RefundProvider(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     возвраты поставщику
     """
     pass
 
+    class Meta:
+        db_table = 'refund_provider'
 
-class Inventory(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+
+class Inventorisation(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     инвентаризация
     """
     pass
 
+    class Meta:
+        db_table = 'inventarisation'
 
-class GoodsWriteOff(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+
+class InventoryOut(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     списание товаров (по итогам инвентаризации)
     """
     pass
 
+    class Meta:
+        db_table = 'inventory_out'
 
-class GoodsPlacingIn(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
+
+class InventoryIn(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
     """
     оприходование товара (по итогам инвентаризации)
     """
     pass
+
+    class Meta:
+        db_table = 'inventory_in'
