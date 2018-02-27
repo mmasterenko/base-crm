@@ -42,7 +42,7 @@ class Product(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, model
     )
 
     title = models.CharField(max_length=256)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField(blank=True)
 
     article = models.CharField(max_length=64)
     bar_code = models.CharField(max_length=32)

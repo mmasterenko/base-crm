@@ -58,16 +58,16 @@ class CounterAgent(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
     property_type = models.PositiveSmallIntegerField(choices=PROPERTY_TYPE)
     formal_title = models.CharField(max_length=256)
     # реквизиты
-    inn = models.CharField(max_length=64, blank=True, null=True, unique=True)  # ИНН
-    kpp = models.CharField(max_length=64, blank=True, null=True, unique=True)   # КПП
-    ogrn = models.CharField(max_length=64, blank=True, null=True, unique=True)  # ОГРН
-    okpo = models.CharField(max_length=64, blank=True, null=True, unique=True)  # ОКПО
+    inn = models.CharField(max_length=64, blank=True, unique=True)  # ИНН
+    kpp = models.CharField(max_length=64, blank=True, unique=True)   # КПП
+    ogrn = models.CharField(max_length=64, blank=True, unique=True)  # ОГРН
+    okpo = models.CharField(max_length=64, blank=True, unique=True)  # ОКПО
     # банковские реквизиты
-    bik = models.CharField(max_length=64, blank=True, null=True, unique=True)  # БИК
-    bank_title = models.CharField(max_length=256, blank=True, null=True)  # название банка
-    korr_account = models.CharField(max_length=64, blank=True, null=True)  # корр.счёт
-    account_number = models.CharField(max_length=64, blank=True, null=True)  # номер счёта
-    account_title = models.CharField(max_length=256, blank=True, null=True)  # наименование счёта
+    bik = models.CharField(max_length=64, blank=True, unique=True)  # БИК
+    bank_title = models.CharField(max_length=256, blank=True)  # название банка
+    korr_account = models.CharField(max_length=64, blank=True)  # корр.счёт
+    account_number = models.CharField(max_length=64, blank=True)  # номер счёта
+    account_title = models.CharField(max_length=256, blank=True)  # наименование счёта
     # юридический адрес
     legal_address_country = models.ForeignKey(Country, related_name='counter_agents_here', on_delete=models.PROTECT)
     legal_address_region = models.ForeignKey(Region, related_name='counter_agents_here', on_delete=models.PROTECT)

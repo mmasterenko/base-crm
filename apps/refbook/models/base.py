@@ -21,11 +21,11 @@ class CashNAccount(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
     currency = models.PositiveSmallIntegerField(choices=CURRENCY_TYPE, default=0)
     notes = models.CharField(max_length=512)
     # банковские реквизиты
-    bik = models.CharField(max_length=64, blank=True, null=True, unique=True)  # БИК
-    bank_title = models.CharField(max_length=256, blank=True, null=True)  # название банка
-    korr_account = models.CharField(max_length=64, blank=True, null=True)  # корр.счёт
-    account_number = models.CharField(max_length=64, blank=True, null=True)  # номер счёта
-    account_title = models.CharField(max_length=256, blank=True, null=True)  # наименование счёта
+    bik = models.CharField(max_length=64, blank=True, unique=True)  # БИК
+    bank_title = models.CharField(max_length=256, blank=True)  # название банка
+    korr_account = models.CharField(max_length=64, blank=True)  # корр.счёт
+    account_number = models.CharField(max_length=64, blank=True)  # номер счёта
+    account_title = models.CharField(max_length=256, blank=True)  # наименование счёта
 
     class Meta:
         db_table = 'cash_n_account'
@@ -43,10 +43,10 @@ class Organisation(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, 
     title = models.CharField(max_length=128)
     property_type = models.PositiveSmallIntegerField(choices=PROPERTY_TYPE)
     # реквизиты
-    inn = models.CharField(max_length=64, blank=True, null=True, unique=True)  # ИНН
-    kpp = models.CharField(max_length=64, blank=True, null=True, unique=True)  # КПП
-    ogrn = models.CharField(max_length=64, blank=True, null=True, unique=True)  # ОГРН
-    okpo = models.CharField(max_length=64, blank=True, null=True, unique=True)  # ОКПО
+    inn = models.CharField(max_length=64, blank=True, unique=True)  # ИНН
+    kpp = models.CharField(max_length=64, blank=True, unique=True)  # КПП
+    ogrn = models.CharField(max_length=64, blank=True, unique=True)  # ОГРН
+    okpo = models.CharField(max_length=64, blank=True, unique=True)  # ОКПО
     # данные по организации
     phone = models.CharField(max_length=16)
     email = models.EmailField()
