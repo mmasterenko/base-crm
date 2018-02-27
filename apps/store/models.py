@@ -70,7 +70,7 @@ class Inventorisation(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixi
     pass
 
     class Meta:
-        db_table = 'inventarisation'
+        db_table = 'inventorisation'
 
 
 class InventoryOut(AccountMixin, CreatorMixin, CreateUpdateMixin, ArchiveMixin, models.Model):
