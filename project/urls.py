@@ -6,7 +6,7 @@ from django.conf import settings
 from django.urls import path, include
 
 urlpatterns = [
-    path('internal-api/', include('project.internal_api_urls')),
+    path('internal-api/', include('api_urls.internal')),
     path('dj-admin/doc/', include('django.contrib.admindocs.urls')),
     path('dj-admin/', admin.site.urls),
 ]
