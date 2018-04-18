@@ -42,4 +42,11 @@ class CustomerRequestSerializer(serializers.ModelSerializer):
         fields = [
             'datetime',
             'text',
+            'status_id',
+            'ordering_source_id',
+            'ordering_method_id',
+            'shop_id',
+            'responsible_id',
+            'counter_agent_id',
+            'organisation_id',
         ]
