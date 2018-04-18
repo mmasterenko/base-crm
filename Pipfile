@@ -4,16 +4,17 @@ name = "pypi"
 url = "https://pypi.python.org/simple"
 
 [dev-packages]
+ipython = "*"
+django-extensions = "*"
+django-debug-toolbar = "*"
+django-rest-swagger = "*"
 
 [packages]
 celery = "==4.1.0"
 dj-database-url = "==0.4.2"
 django-constance = {extras = ["database"], version = "==2.0.0"}
-django-debug-toolbar = "==1.9.1"
-django-extensions = "==1.9.9"
 django-filter = "==1.1.0"
 django-guardian = "==1.4.9"
-django-rest-swagger = "==2.1.2"
 djangorestframework = "==3.7.7"
 "psycopg2" = "==2.7.3.2"
 redis = "==2.10.6"
