@@ -125,6 +125,30 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'core.User'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication'
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 15,
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'COERCE_DECIMAL_TO_STRING': False,
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '30/min',
+        'user': '100/min',
+        'heavy': '3/min',
+        'download': '3/min',
+    }
+}
+
 
 ###################
 # CUSTOM SETTINGS #

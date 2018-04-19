@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 
-from .collection_tools import transform_values
+from utils.collections import transform_values
 
 
 class ReadableChoiceField(serializers.ChoiceField):

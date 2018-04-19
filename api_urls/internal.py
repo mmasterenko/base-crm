@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.urls import path
 
+from apps.crm.rest import views as crm_views
+
 
 app_name = 'internal-api'
 
@@ -21,8 +23,8 @@ urlpatterns = [
     path('task/<int:pk>',         lambda r: HttpResponse('OK'), name='task-detail'),
     path('task',                  lambda r: HttpResponse('OK'), name='task-list'),
 
-    path('request/<int:pk>',   lambda r: HttpResponse('OK'), name='request-detail'),
-    path('request',            lambda r: HttpResponse('OK'), name='request-list'),
+    path('request/<int:pk>', crm_views.CustomerRequestDetailView.as_view(), name='request-detail'),
+    path('request', crm_views.CustomerRequestListView.as_view(), name='request-list'),
 
     path('order/<int:pk>',   lambda r: HttpResponse('OK'), name='order-detail'),
     path('order',            lambda r: HttpResponse('OK'), name='order-list'),

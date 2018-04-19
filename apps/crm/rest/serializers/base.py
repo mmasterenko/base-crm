@@ -10,31 +10,31 @@ User = get_user_model()
 class CustomerRequestSerializer(serializers.ModelSerializer):
     status_id = serializers.PrimaryKeyRelatedField(
         source='status',
-        queryset=rb_models.CustomerRequestStatus.objects.filter(is_archive=True)
+        queryset=rb_models.CustomerRequestStatus.objects.filter(is_archive=False),
     )
     ordering_source_id = serializers.PrimaryKeyRelatedField(
         source='ordering_source',
-        queryset=rb_models.OrderingSource.objects.filter(is_archive=True)
+        queryset=rb_models.OrderingSource.objects.filter(is_archive=False),
     )
     ordering_method_id = serializers.PrimaryKeyRelatedField(
         source='ordering_method',
-        queryset=rb_models.OrderingMethod.objects.filter(is_archive=True)
+        queryset=rb_models.OrderingMethod.objects.filter(is_archive=False),
     )
     shop_id = serializers.PrimaryKeyRelatedField(
         source='shop',
-        queryset=rb_models.Shop.objects.filter(is_archive=True)
+        queryset=rb_models.Shop.objects.filter(is_archive=False),
     )
     responsible_id = serializers.PrimaryKeyRelatedField(
         source='responsible',
-        queryset=User.objects.filter(is_archive=True)
+        queryset=User.objects.filter(is_archive=False),
     )
     counter_agent_id = serializers.PrimaryKeyRelatedField(
         source='counter_agent',
-        queryset=rb_models.CounterAgent.objects.filter(is_archive=True)
+        queryset=rb_models.CounterAgent.objects.filter(is_archive=False),
     )
     organisation_id = serializers.PrimaryKeyRelatedField(
         source='organisation',
-        queryset=rb_models.Organisation.objects.filter(is_archive=True)
+        queryset=rb_models.Organisation.objects.filter(is_archive=False),
     )
 
     class Meta:

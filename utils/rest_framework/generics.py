@@ -2,12 +2,12 @@ from rest_framework.generics import GenericAPIView
 from rest_framework import mixins
 
 
-class RUDAPIView(mixins.RetrieveModelMixin,
-                 mixins.UpdateModelMixin,
-                 mixins.DestroyModelMixin,
-                 GenericAPIView):
+class RetrieveUpdateDestroy(mixins.RetrieveModelMixin,
+                            mixins.UpdateModelMixin,
+                            mixins.DestroyModelMixin,
+                            GenericAPIView):
     """
-    Concrete view for retrieving, updating or deleting a model instance.
+    without PUT
     """
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)

@@ -7,6 +7,9 @@ ENVIRON = ENVIRONS['dev']
 INSTALLED_APPS += [
     'debug_toolbar',
     'django_extensions',
+    'rest_framework_swagger',
+    'rest_framework',
+    'drf_yasg',
     'django.contrib.admindocs',
 ]
 
@@ -25,8 +28,7 @@ INTERNAL_IPS = ['127.0.0.1']
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
-        'LOCATION': '127.0.0.1:11211',
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
 }
 
