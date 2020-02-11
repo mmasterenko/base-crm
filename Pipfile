@@ -19,7 +19,7 @@ djangorestframework = "*"
 "psycopg2" = "==2.7.3.2"
 redis = "==2.10.6"
 pylibmc = "==1.5.2"
-Django = "==2.0.1"
+Django = "==2.2.10"
 Markdown = "==2.6.11"
 
 [requires]
